@@ -154,9 +154,9 @@ class TicTac():# отрисовка знака игрока
 
 
 class Comp_Enemy():# это бот
-    # работает так : сначало в пустые клетки пробует подставить свой знак ,если победный ход ,то делает его в текущуюю ячейку
-    # иначе он делает тоже самое с знаком игрока
-    # затем пробует поставить в клетки из varius_of_step это лучшие ходы в порядке убывания
+    # 1.работает так : сначало в пустые клетки пробует подставить свой знак ,если победный ход ,то делает его в текущуюю ячейку
+    #2. иначе он делает тоже самое с знаком игрока
+    # 3.затем пробует поставить в клетки из varius_of_step это лучшие ходы в порядке убывания
     def __init__(self):
         self.varius_of_step = (4, 0, 2, 6, 8, 1, 3, 5, 7)#учшие ходы в порядке убывания
 
@@ -166,25 +166,26 @@ class Comp_Enemy():# это бот
         save_free_cell = 0
 
 
-        for sign in (comp_sign,human_sign):
+        for sign in (comp_sign,human_sign):# 1 этап
             for index in range(0,len(battle_field.board)):
-                save_free_cell = battle_field.board[index]
-                if type(battle_field.board[index]) == int :
-                    battle_field.board[index] = sign
+                save_free_cell = battle_field.board[index]#сохраняем чтобы поставить обратно если ячейка не подходящая
+                if type(battle_field.board[index]) == int :# незанятые ячейки это инты
+                    battle_field.board[index] = sign # заменяем на знак
 
 
-                if (battle_field.check_winner(battle_field.board)!= False):
+                if (battle_field.check_winner(battle_field.board)!= False):# если ячейка та
                     self.draw_Comp_sight(index)
                     battle_field.board[index] = comp_sign
 
                     count_steps += 1
                     return 0
 
-                else:
+                else:# возвращаем обратно
                     battle_field.board[index] = save_free_cell
 
         if battle_field.board[5]== human_sigh and battle_field.board [7]  == human_sigh and (fix_me_flag == True) \
                 and battle_field.board[8] != human_sigh and battle_field.board[8] != comp_sigh:
+            #костыль проще закоментить и чекнуть чем объяснять
             fix_me_flag = False
             self.draw_Comp_sight(8)
             battle_field.board[8] = comp_sigh
@@ -192,7 +193,7 @@ class Comp_Enemy():# это бот
             count_steps += 1
             return 0
 
-        for el in self.varius_of_step:
+        for el in self.varius_of_step:# если победных нет то ставим в лучшую
             if el in battle_field.board:
                 battle_field.board[el] = comp_sign
                 self.draw_Comp_sight(el)
@@ -252,4 +253,4 @@ my_pc = Comp_Enemy()#бот
 
 
 
-main()#входим в главный цикл  
+main()#входим в главный цикл
