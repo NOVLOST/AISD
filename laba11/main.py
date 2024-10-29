@@ -9,7 +9,7 @@ open_flag = False #отвечает за отрытое положение ми�
 work_flag = False #отвечает за рабочее положение микроволновки
 rozet_flag =True  #вкл/выкл вылки из разетки
 time = 0   #время работы храниться в секундах
-power_state = "disable"
+
 
 
 
@@ -28,7 +28,7 @@ class Window(): # окно на котом все рисуется
         self.win.mainloop()
 
     def printPressedButton(self, event):  # действия при нажатии на мыш или клавиатуру
-        global canvas, img, open_flag,work_flag, rozet_flag,img_rozet,power_state,reset_time,add_second,add_minute,start
+        global canvas, img, open_flag,work_flag, rozet_flag,img_rozet,reset_time,add_second,add_minute,start
 
         #
         # Close/Open
